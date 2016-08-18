@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="みんなのメモ帳は、面倒な登録などは不要で、ちょっとしたメモを簡単に保存しておけるWebサービスです。メモはクラウド上に保存され、パソコン・スマホなどインターネットに接続されたどの端末でも見ることができます。">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon.ico">
+
+    <title>{% block title %}{% endblock %}{{ title }}</title>
+
+    <link href="static/vender/css/bootstrap.paper.min.css" rel="stylesheet">
+    <link href="static/css/style.css" rel="stylesheet">
+    {# 追加スタイルシート #}
+    {% block style %}{% endblock %}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><!--<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>-->{{ title }}</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li {% if active_page == 0 %}class="active"{% endif %}><a href={% if active_page == 0 %}""{% else %}"/"{% endif %}><!--<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>-->メモを書く</a></li>
+            <li {% if active_page == 1 %}class="active"{% endif %}><a href="/timeline/1"><!--<span class="glyphicon glyphicon-share" aria-hidden="true"></span>-->みんなのメモ</a></li>
+            <li {% if active_page == 2 %}class="active"{% endif %}><a href="/about/service"><!--<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>-->このサイトについて</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+     
+    <!-- Begin page content -->
+    <div class="container">
+
+    {# ページのコンテンツ部分 #}
+    {% block content %}{% endblock %}
+    
+    </div>
+    
+    <script src="static/vender/js/jquery.min.js"></script>
+    <script src="static/vender/js/bootstrap.min.js"></script>
+    {# 追加のスクリプト #}
+    {% block script %}{% endblock %}
+  </body>
+</html>

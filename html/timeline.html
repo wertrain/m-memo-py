@@ -1,0 +1,37 @@
+{% extends "html/base.html" %}
+
+{% block title %}みんなのメモ - {% endblock %}
+
+{% block content %}
+
+{% for memo in memos %}
+  <h4><a href="/share/{{ memo.share }}"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></a> {{ memo.updated_at }}</h4>
+  {{ memo.text }}
+  <hr>
+{% endfor %}
+
+<nav class="text-center">
+  <ul class="pagination">
+    <li>
+      <a href="/timeline/{{ previous_page }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% for page in pages %}
+        {% if page == current_page + 1 %}
+        <li class="active">
+        {% else %}
+        <li>
+        {% endif %}
+            <a href="/timeline/{{ page }}">{{ page }}</a>
+        </li>
+    {% endfor %}
+    <li>
+      <a href="/timeline/{{ next_page }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+{% endblock %}

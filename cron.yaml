@@ -1,0 +1,5 @@
+cron:
+- description: 空のメモを削除
+  url: /system/delete_empty_memo
+  schedule: every 24 hours
+  timezone: Asia/Tokyo

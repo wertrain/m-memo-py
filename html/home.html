@@ -1,0 +1,78 @@
+{% extends "html/base.html" %}
+
+{% block title %}{{ url }} - メモを書く - {% endblock %}
+
+{% block content %}
+<div class="textarea-wrapper">
+<textarea id="memo" maxlength="5120" wrap="off">{{ text }}</textarea>
+</div>
+<div class="menuarea-wrapper">
+<div class="form-group text-center menubar">
+
+  <div class="btn-group btn-group-justified" role="group">
+    <div class="btn-group" role="group">
+    
+      <span class="popover-markup"> 
+        <button type="button" class="trigger btn btn-default btn-block" data-placement="top"><!--<span class="glyphicon glyphicon-link" aria-hidden="true"></span>-->URL変更</button>
+        <div class="content hide">
+          <form id="change-url" action="/change/{{url}}" method="post">
+            <div class="form-group">
+              <input id="input-url" name="url" type="text" class="form-control" value="{{url}}" placeholder="URL" required>
+            </div>
+            <input id="submit-url-button" class="btn btn-default btn-block" value="送信" type="submit" />
+          </form>
+        </div>
+      </span>
+      
+    </div>
+    <div class="btn-group" role="group">
+  
+      {% if password %}
+      <form action="/unlock/{{url}}" role="form" class="form-inline" method="post">
+        <input name="password" type="hidden" value="">
+        <button class="btn btn-default btn-block" type="submit"><!--<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>-->パスワード削除</button>
+      </form>
+      {% else %}
+      <span class="popover-markup"> 
+        <button type="button" class="trigger btn btn-default btn-block" data-placement="top"><!--<span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span>-->パスワード追加</button>
+        <div class="content hide">
+          <form action="/lock/{{url}}" method="post">
+            <div class="form-group">
+              <input id="input-password" name="password" type="password" class="form-control" placeholder="パスワード" required>
+            </div>
+            <input id="submit-password-button" class="btn btn-default btn-block" value="送信" type="submit" />
+          </form>
+        </div>
+      </span>
+      {% endif %}
+      
+    </div>
+    <div class="btn-group" role="group">
+    
+      <span class="popover-markup"> 
+        <button type="button" class="trigger btn btn-default btn-block" data-placement="top"><!--<span class="glyphicon glyphicon-share" aria-hidden="true"></span>-->閲覧用URL</button>
+        <div class="content hide">
+          <a href="/share/{{ share }}">http://m-memo.com/share/{{ share }}</a>
+        </div>
+      </span>
+    
+    </div>
+    
+  </div>
+  
+  <div class="checkbox pull-right">
+    <label>
+      <input type="checkbox" id="change-public" {% if public_flag %}checked{% endif %}> このメモを「みんなのメモ」に公開する
+    </label>
+  </div>
+</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+var current_url = '{{ url }}';
+var api_id = '{{ check_id }}';
+</script>
+<script src="static/js/script.js"></script>
+{% endblock %}
